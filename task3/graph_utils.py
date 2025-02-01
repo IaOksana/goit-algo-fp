@@ -1,14 +1,4 @@
 import networkx as nx
-import uuid
-import matplotlib.pyplot as plt
-
-# # Define the nodes (people in the social network)
-# nodes = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank']
-
-# # Define the edges (connections between people)
-# edges = [('Alice', 'Bob'), ('Alice', 'Charlie'), ('Bob', 'Charlie'),
-#         ('Bob', 'David'), ('Charlie', 'Eve'), ('David', 'Eve'),
-#         ('Eve', 'Frank')]
 
 nodes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 edges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('B', 'E'),

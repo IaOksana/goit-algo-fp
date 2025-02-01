@@ -4,11 +4,16 @@
 Розробіть алгоритм Дейкстри для знаходження найкоротших шляхів у зваженому графі, використовуючи 
 бінарну купу. Завдання включає створення графа, використання піраміди для оптимізації вибору вершин 
 та обчислення найкоротших шляхів від початкової вершини до всіх інших.
+
+- Програмно реалізовано алгоритм Дейкстри для знаходження найкоротшого шляху у графі з використанням 
+бінарної купи (піраміди).
+- У межах реалізації завдання створено граф, використано піраміду для оптимізації вибору вершин та 
+виконано обчислення найкоротших шляхів від початкової вершини до всіх інших.
 '''
 
-from graph_utils import nodes, edges, weights, create_graph, draw_tree, Node
-
+from graph_utils import create_graph 
 import heapq
+import matplotlib.pyplot as plt
 
 def dijkstra_nx(graph, start):
     """Алгоритм Дейкстри для знаходження найкоротших шляхів у зваженому графі NetworkX"""
@@ -46,13 +51,10 @@ def reconstruct_path(previous_nodes, start, end):
 
 
 def main():
-
-    # Виконання алгоритму Дейкстри
     graph = create_graph()
     start_vertex = 'A'
 
-    draw_tree(graph)
-
+    # Виконання алгоритму Дейкстри
     shortest_paths, previous_nodes = dijkstra_nx(graph, start_vertex)
 
     print(f"Найкоротші шляхи від {start_vertex}: {shortest_paths}")
@@ -61,7 +63,6 @@ def main():
     target_vertex = 'I'
     path = reconstruct_path(previous_nodes, start_vertex, target_vertex)
     print(f"Найкоротший шлях від {start_vertex} до {target_vertex}: {path}")
-
 
 
 
