@@ -1,18 +1,48 @@
-'''
-Завдання 4. Візуалізація піраміди
-
-Наступний код виконує побудову бінарних дерев. Виконайте аналіз коду, щоб зрозуміти, як він працює.
-Використовуючи як базу цей код, побудуйте функцію, що буде візуалізувати бінарну купу.
- 👉🏻 Примітка. Суть завдання полягає у створенні дерева із купи.
-'''
-
-import uuid
-
 import networkx as nx
+import uuid
 import matplotlib.pyplot as plt
 
-from graph_utils import Node, draw_tree, add_edges
+# # Define the nodes (people in the social network)
+# nodes = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank']
 
+# # Define the edges (connections between people)
+# edges = [('Alice', 'Bob'), ('Alice', 'Charlie'), ('Bob', 'Charlie'),
+#         ('Bob', 'David'), ('Charlie', 'Eve'), ('David', 'Eve'),
+#         ('Eve', 'Frank')]
+
+nodes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+edges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('B', 'E'),
+        ('C', 'F'), ('C', 'G'), ('D', 'H'), ('E', 'I'),
+        ('F', 'I'), ('G', 'I'), ('G', 'B')]
+
+weights = {
+    ('A', 'B'): 4,
+    ('A', 'C'): 1,
+    ('B', 'D'): 1,
+    ('B', 'E'): 3,
+    ('C', 'F'): 1,
+    ('C', 'G'): 2,
+    ('D', 'H'): 2,
+    ('E', 'I'): 6,
+    ('F', 'I'): 4,
+    ('G', 'I'): 4,
+    ('G', 'B'): 2,
+}
+
+
+
+def create_graph():
+    # Create the graph
+    graph = nx.Graph()
+    graph.add_nodes_from(nodes)
+    graph.add_edges_from(edges)
+
+    for edge, weight in weights.items():
+        graph.edges[edge]['weight'] = weight
+
+    return graph
+
+'''_________________________________________________________________________________'''
 class Node:
     def __init__(self, key, color="skyblue"):
         self.left = None
@@ -49,15 +79,3 @@ def draw_tree(tree_root):
     plt.figure(figsize=(8, 5))
     nx.draw(tree, pos=pos, labels=labels, arrows=False, node_size=2500, node_color=colors)
     plt.show()
-
-
-# Створення дерева
-root = Node(0)
-root.left = Node(4)
-root.left.left = Node(5)
-root.left.right = Node(10)
-root.right = Node(1)
-root.right.left = Node(3)
-
-# Відображення дерева
-draw_tree(root)

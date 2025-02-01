@@ -12,6 +12,7 @@
 👉🏻 Примітка. Використовуйте стек та чергу, НЕ рекурсію
 '''
 
+
 import uuid
 import matplotlib.colors as mcolors
 from collections import deque
@@ -19,6 +20,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from time import sleep
 from matplotlib.animation import FuncAnimation
+from graph_utils import Node, draw_tree, add_edges
 
 class Node:
     def __init__(self, key, color="skyblue"):
@@ -54,12 +56,15 @@ def dfs_iterative(graph, start_vertex):
         # Вилучаємо вершину зі стеку
         vertex = stack.pop()  
         if vertex not in visited:
-             # Відвідуємо вершину
+            print(vertex, end=' ')
+            # Відвідуємо вершину
             visited.add(vertex)
             path.append(vertex)
             # Додаємо сусідні вершини до стеку
-            stack.extend(reversed(list(graph.neighbors(vertex))))   
+            stack.extend(reversed(list(graph.neighbors(vertex))))  
+    
     return path
+
 
 
 def bfs_iterative(graph, start):
@@ -74,6 +79,8 @@ def bfs_iterative(graph, start):
         vertex = queue.popleft()
         # Перевіряємо, чи була вершина відвідана раніше
         if vertex not in visited:
+            # Якщо не була відвідана, друкуємо її
+            print(vertex, end=" ")
             # Додаємо вершину до множини відвіданих вершин
             visited.add(vertex)
             path.append(vertex)
@@ -83,13 +90,12 @@ def bfs_iterative(graph, start):
     # Повертаємо множину відвіданих вершин після завершення обходу
     return path  
 
-
-def adjust_brightness(hex_color, factor=0.2):
+def adjust_brightness(hex_color, factor=0.8):
     # Змінює яскравість кольору (від світлого до темного). factor < 1 — затемнення, factor > 1 — освітлення
+
     rgb = mcolors.hex2color(hex_color)  # Конвертуємо HEX у RGB (0-1)
     darker_rgb = tuple(max(0, min(1, c * factor)) for c in rgb)  # Затемнюємо
     return mcolors.to_hex(darker_rgb)  # Конвертуємо назад у HEX
-
 
 def draw_tree(tree_root, traversal_type = True):
     tree = nx.DiGraph()
@@ -100,6 +106,7 @@ def draw_tree(tree_root, traversal_type = True):
 
     def update(frame):
         sleep(0.5)
+        print("update")
         ax.clear()
         
         if len(path) != 0:
@@ -107,7 +114,7 @@ def draw_tree(tree_root, traversal_type = True):
             nx.draw(tree, pos=pos, labels=labels, node_size=2000, node_color=colors, ax=ax, font_weight='bold')
             if not traversal_type:
                 nx.draw_networkx_nodes(tree, pos=pos, nodelist=nodes, node_color='orange', node_size=2000, ax=ax)
-            ax.set_title(f'Press Enter to change mode. { "BFS" if not traversal_type else "DFS"} ')
+            ax.set_title(f'Press Enter to change mode.   { "BFS" if not traversal_type else "DFS"} ')
         else:   
             ax.set_title(f'Press Enter to start')
             nx.draw(tree, pos=pos, labels=labels, node_size=2000, node_color='lightblue', ax=ax, font_weight='bold')
@@ -146,17 +153,14 @@ def draw_tree(tree_root, traversal_type = True):
     plt.show()
     
 
-def main():
-    # Створення дерева
-    root = Node(0)
-    root.left = Node(4)
-    root.left.left = Node(5)
-    root.left.right = Node(10)
-    root.right = Node(1)
-    root.right.left = Node(3)
 
-    # Відображення дерева
-    draw_tree(root)
+# Створення дерева
+root = Node(0)
+root.left = Node(4)
+root.left.left = Node(5)
+root.left.right = Node(10)
+root.right = Node(1)
+root.right.left = Node(3)
 
-if __name__ == '__main__':
-        main()
+# Відображення дерева
+draw_tree(root)
