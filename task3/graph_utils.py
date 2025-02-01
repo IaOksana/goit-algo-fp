@@ -19,8 +19,6 @@ weights = {
     ('G', 'B'): 2,
 }
 
-
-
 def create_graph():
     # Create the graph
     graph = nx.Graph()

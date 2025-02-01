@@ -13,7 +13,6 @@
 
 from graph_utils import create_graph 
 import heapq
-import matplotlib.pyplot as plt
 
 def dijkstra_nx(graph, start):
     """Алгоритм Дейкстри для знаходження найкоротших шляхів у зваженому графі NetworkX"""
