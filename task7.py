@@ -21,6 +21,27 @@ import random
 import matplotlib.pyplot as plt
 import numpy as np
 
+def generate_readme(probability_estimates, analytical_probability):
+    with open("readme.md", "w") as f:
+        f.write("# Comparative Analysis: Analytical Method vs Monte-Carlo\n\n")
+
+        # Introduction
+        f.write("## Introduction\n\n")
+        f.write("This README compares the results of calculating the probability distribution of the sum of two dice using two distinct methods: the analytical method and the Monte Carlo method. The analytical method derives probabilities directly from combinatorial principles, providing exact results. In contrast, the Monte Carlo method relies on repeated random sampling to estimate probabilities. This simulation involves a large number of virtual dice rolls, and the observed frequencies of different sums are used to approximate the true probabilities. We will analyze how closely the Monte Carlo estimates converge to the analytical probabilities, highlighting the strengths and limitations of each approach. This comparison serves to illustrate the utility of the Monte Carlo method, especially in scenarios where analytical solutions are complex or intractable.\n\n")
+
+        # Comparative Analysis: Analytical Method vs Monte-Carlo
+        f.write("## Probabilities received:\n\n")
+        f.write("|  probability_estimates  |  analytical_probability  |\n")
+        f.write("|-------------------------|--------------------------|\n")
+        for i in range(len(probability_estimates)):
+            f.write(f"|        {probability_estimates[i]}            |        {analytical_probability[i]}           |\n")
+
+        # Conclusion
+        f.write("\n\n## Conclusion\n\n")
+        f.write("No significant differences between 2 methods were observed (num_samples = 100000).\n\n")
+        f.write("However, it's important to performe a large number of experimets to achieve a good result.")
+
+
 
 def monte_carlo_pi(num_samples, a = 1, b = 6):
     # 1. Визначення моделі або системи.
@@ -54,6 +75,7 @@ def main():
     probability_estimates = monte_carlo_pi(num_samples, a, b)
     print(f"Розраховані значення: {probability_estimates}")
 
+    generate_readme(probability_estimates, analytical_probability)
 
     # Візуалізуємо результати
     bar_width = 0.35  
