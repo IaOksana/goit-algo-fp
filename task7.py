@@ -31,10 +31,10 @@ def generate_readme(probability_estimates, analytical_probability):
 
         # Comparative Analysis: Analytical Method vs Monte-Carlo
         f.write("## Probabilities received:\n\n")
-        f.write("|  probability_estimates  |  analytical_probability  |\n")
-        f.write("|-------------------------|--------------------------|\n")
+        f.write("|    SUM OF TWO DICE      |  probability_estimates  |  analytical_probability  |\n")
+        f.write("|-------------------------|-------------------------|--------------------------|\n")
         for i in range(len(probability_estimates)):
-            f.write(f"|        {probability_estimates[i]}            |        {analytical_probability[i]}           |\n")
+            f.write(f"|           {i + 2}             |        {probability_estimates[i]}            |        {analytical_probability[i]}           |\n")
 
         # Conclusion
         f.write("\n\n## Conclusion\n\n")
