@@ -42,54 +42,30 @@ def knapSack(items: list[Item], budget: int) -> int:
             food.append(item.name)
     return total_calories, food, budget
 
-def find_knapsack_top(items, budget,  i=0, lookup= None):
+def find_knapsack_top(items, budget, i=0, lookup=None):
     lookup = {} if lookup is None else lookup
-    if (i,budget) in lookup:
-        return lookup[(i,budget)]
+    if (i, budget) in lookup:
+        return lookup[(i, budget)]
 
-    if len(items) == i or budget < 0:
-        return 0
-    elif (items[i].value > budget):
-        return find_knapsack_top(items, budget, i+1, lookup)
+    if i == len(items) or budget < 0:  # Base cases
+        return 0, [], budget # Return 0 calories, an empty food list, and original budget
+
+    if items[i].value > budget:  # Item doesn't fit
+        return find_knapsack_top(items, budget, i + 1, lookup)
+
+    # Explore two possibilities: include or exclude the current item
+    include_calories, include_food, include_change = find_knapsack_top(items, budget - items[i].value, i + 1, lookup)
+    exclude_calories, exclude_food, exclude_change = find_knapsack_top(items, budget, i + 1, lookup)
+
+    if items[i].calories + include_calories > exclude_calories : # account for actual calorie count rather than just budget
+        lookup[(i, budget)] = (items[i].calories + include_calories, include_food + [items[i].name], include_change)
     else:
-        lookup[(i,budget)] = max(items[i].calories+ find_knapsack_top(items,budget-items[i].value,i+1,lookup),
-                            find_knapsack_top(items,budget,i+1, lookup))
-        return lookup[(i,budget)]
-
-# dynamic algorithm
-'''def dynamic_programming(items, budget, lookup=None):
-    lookup = {} if lookup is None else lookup  # Initialize lookup if None
-
-    # Base cases:
-    if budget == 0:
-        return {}
-    if budget < 0:  # Changed base case
-        return None 
-    if budget in lookup:
-        return lookup[budget]  
-    
-    max_calories = 0
-    best_combination = None
-
-    for item in items:
-        remaining_amount = budget - item.value
-        
-        result = dynamic_programming(items, remaining_amount, lookup)  # Recursive call
-
-        if result is not None:
-            current_calories = item.calories + (sum(item.calories for item in result.values()) if result else 0) 
-            
-            if current_calories > max_calories:
-                max_calories = current_calories
-                best_combination = {item.name: item}  # Add current item to combination
-                best_combination.update(result)  # Update with previous result
+        lookup[(i, budget)] = (exclude_calories, exclude_food, exclude_change)
 
 
-    lookup[budget] = best_combination
+    return lookup[(i, budget)]
 
-    return  best_combination
 
-'''
 def main():
     # Дані предметів
     #items = [Item(10, 60), Item(20, 100), Item(30, 120)]
@@ -122,28 +98,24 @@ def main():
             budget = int(user_input)
             print(f"Our menu: {items}")
             total_calories, food, change = knapSack(menu, budget)
-            print(" ")
-            print("We use greedy algorithm to plan your menu!")
-            print(f"You can receive {total_calories} calories eating {food}. Your change is {change}")  # 160
-
-            print(" ")
-            print("Using dynamic algorithm to plan your menu:")
-
-            best_food  = find_knapsack_top(menu, budget)
-            print(best_food)
             
-            ''' if best_food:
+            if total_calories != 0:
+                print(" ")
+                print("If we use greedy algorithm to plan your menu!")
+                print(f"You can receive {total_calories} calories eating {food}. Your change is {change}")  # 160
+
+                print(" ")
+                print("Using dynamic algorithm to plan your menu:")
+
+                total_calories, food, change = find_knapsack_top(menu, budget)
+                
                 print("Best food combination within budget", budget)
-                total_calories = 0
-
-                for food_name, food_item in best_food.items():
-                    print(f"- {food_name} (Calories: {food_item.calories}, Cost: {food_item.value})")
-                    total_calories += food_item.calories
-                print("Total calories:", total_calories)
-            else:
-                print("No combination found within the budget.")'''
-            #print(f"You can receive {total_calories} calories eating {food}. Your change is {change}")  # 160
-
+                print(f"You can receive {total_calories} calories eating {food}. Your change is {change}")  # 160
+                print(" ")
+            else:        
+                print("No combination found within the budget.")
+                print(" ")
+ 
         except ValueError:
             print("❌ Invalid input! Please enter a number or type 'q' to quit.")
    
