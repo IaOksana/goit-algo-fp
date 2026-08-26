@@ -14,6 +14,7 @@
 from graph_utils import create_graph 
 import heapq
 
+# Traverse the dijkstra nx operation.
 def dijkstra_nx(graph, start):
     """Алгоритм Дейкстри для знаходження найкоротших шляхів у зваженому графі NetworkX"""
     shortest_paths = {node: float('inf') for node in graph.nodes}
@@ -38,6 +39,7 @@ def dijkstra_nx(graph, start):
 
     return shortest_paths, previous_nodes
 
+# Handle the reconstruct path operation.
 def reconstruct_path(previous_nodes, start, end):
     """Відновлення найкоротшого шляху з кінцевої вершини до початкової"""
     path = []
@@ -49,6 +51,7 @@ def reconstruct_path(previous_nodes, start, end):
     return path if path[0] == start else []
 
 
+# Run the main operation.
 def main():
     graph = create_graph()
     start_vertex = 'A'
