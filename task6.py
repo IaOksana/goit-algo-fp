@@ -23,6 +23,7 @@ items = {
 Для реалізації алгоритму динамічного програмування створіть функцію dynamic_programming, яка обчислює 
 оптимальний набір страв для максимізації калорійності при заданому бюджеті.'''
 
+# Represent the Item concept.
 class Item:
     def __init__(self, calories, value, name):
         self.calories = calories
@@ -42,6 +43,7 @@ def knapSack(items: list[Item], budget: int) -> int:
             food.append(item.name)
     return total_calories, food, budget
 
+# Return the find knapsack top operation.
 def find_knapsack_top(items, budget, i=0, lookup=None):
     lookup = {} if lookup is None else lookup
     if (i, budget) in lookup:
@@ -66,6 +68,7 @@ def find_knapsack_top(items, budget, i=0, lookup=None):
     return lookup[(i, budget)]
 
 
+# Run the main operation.
 def main():
     # Дані предметів
     #items = [Item(10, 60), Item(20, 100), Item(30, 120)]
