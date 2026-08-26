@@ -12,15 +12,18 @@ class Node:
         self.data = data  # Зберігає дані вузла
         self.next = None  # Посилання на наступний вузол
 
+# Represent the LinkedList concept.
 class LinkedList:
     def __init__(self):
         self.head = None  # Початок списку, спочатку пустий
 
+    # Add the insert at beginning operation.
     def insert_at_beginning(self, data):
         new_node = Node(data)  # Створює новий вузол з даними
         new_node.next = self.head  # Вказує, що новий вузол має посилатися на поточний головний вузол
         self.head = new_node  # Робить новий вузол головним вузлом списку
 
+    # Add the insert at end operation.
     def insert_at_end(self, data):
         new_node = Node(data)  # Створює новий вузол з даними
         if self.head is None:  # Якщо список пустий
@@ -31,6 +34,7 @@ class LinkedList:
                 cur = cur.next
             cur.next = new_node  # Додає новий вузол в кінці списку
 
+    # Add the insert after operation.
     def insert_after(self, prev_node: Node, data):
         if prev_node is None:  # Перевіряє, чи існує попередній вузол
             print("Попереднього вузла не існує.")
@@ -39,6 +43,7 @@ class LinkedList:
         new_node.next = prev_node.next  # Вказує, що новий вузол має посилатися на вузол після попереднього вузла
         prev_node.next = new_node  # Вставляє новий вузол після попереднього вузла
 
+    # Remove the delete node operation.
     def delete_node(self, key: int):
         cur = self.head  # Починає з головного вузла
         if cur and cur.data == key:  # Якщо головний вузол містить потрібні дані
@@ -54,6 +59,7 @@ class LinkedList:
         prev.next = cur.next  # Видаляє вузол з потрібними даними
         cur = None  # Звільняє пам'ять, видаляючи вузол
 
+    # Return the search element operation.
     def search_element(self, data: int) -> Node | None:
         cur = self.head  # Починає з головного вузла
         while cur:  # Проходить список у пошуках потрібних даних
@@ -62,6 +68,7 @@ class LinkedList:
             cur = cur.next
         return None  # Якщо вузол з потрібними даними не знайдено
 
+    # Handle the print list operation.
     def print_list(self):
         current = self.head  # Починає з головного вузла
         while current:  # Проходить весь список
@@ -89,6 +96,7 @@ class LinkedList:
         # Сортує список злиттям.
         self.head = self._merge_sort(self.head)
 
+    # Handle the merge sort operation.
     def _merge_sort(self, head):
         # Рекурсивна функція для сортування злиттям.
 
@@ -104,6 +112,7 @@ class LinkedList:
 
         return self._merge(left, right)
 
+    # Handle the get middle operation.
     def _get_middle(self, head):
         # Знаходить середину списку.
         if head is None:
@@ -118,6 +127,7 @@ class LinkedList:
 
         return slow
 
+    # Handle the merge operation.
     def _merge(self, left, right):
         # Зливає два відсортовані списки.
         if left is None:
@@ -137,6 +147,7 @@ class LinkedList:
 
     """ Завдання 3: Функція, що об'єднує два відсортовані однозв'язні списки в один відсортований список
     (other_list: Інший відсортований список (об'єкт LinkedList).) """
+    # Sort the merge sorted lists operation.
     def merge_sorted_lists(self, other_list):
         # 1. Перевірка на пусті списки
         if self.head is None:
