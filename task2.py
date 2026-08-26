@@ -8,6 +8,7 @@
 
 import turtle
 
+# Visualize the draw pythagorean tree operation.
 def draw_pythagorean_tree(level, length):
     if level == 0:
         return
@@ -24,6 +25,7 @@ def draw_pythagorean_tree(level, length):
         exit()
 
 
+# Run the main operation.
 def main():
     while True:
         # Отримання рівня рекурсії від користувача
