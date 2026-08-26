@@ -20,6 +20,7 @@ import matplotlib.pyplot as plt
 from time import sleep
 from matplotlib.animation import FuncAnimation
 
+# Represent the Node concept.
 class Node:
     def __init__(self, key, color="skyblue"):
         self.left = None
@@ -29,6 +30,7 @@ class Node:
         self.id = str(uuid.uuid4()) # Унікальний ідентифікатор для кожного вузла
 
 
+# Add the add edges operation.
 def add_edges(graph, node, pos, x=0, y=0, layer=1):
     if node is not None:
         graph.add_node(node.id, color=node.color, label=node.val) # Використання id та збереження значення вузла
@@ -45,6 +47,7 @@ def add_edges(graph, node, pos, x=0, y=0, layer=1):
     return graph
 
 
+# Traverse the dfs iterative operation.
 def dfs_iterative(graph, start_vertex):
     path = []
     visited = set()
@@ -62,6 +65,7 @@ def dfs_iterative(graph, start_vertex):
     return path
 
 
+# Traverse the bfs iterative operation.
 def bfs_iterative(graph, start):
     # Ініціалізація порожньої множини для зберігання відвіданих вершин
     visited = set()
@@ -84,6 +88,7 @@ def bfs_iterative(graph, start):
     return path  
 
 
+# Handle the adjust brightness operation.
 def adjust_brightness(hex_color, factor=0.2):
     # Змінює яскравість кольору (від світлого до темного). factor < 1 — затемнення, factor > 1 — освітлення
     rgb = mcolors.hex2color(hex_color)  # Конвертуємо HEX у RGB (0-1)
@@ -91,6 +96,7 @@ def adjust_brightness(hex_color, factor=0.2):
     return mcolors.to_hex(darker_rgb)  # Конвертуємо назад у HEX
 
 
+# Visualize the draw tree operation.
 def draw_tree(tree_root, traversal_type = True):
     tree = nx.DiGraph()
     pos = {tree_root.id: (0, 0)}
@@ -98,6 +104,7 @@ def draw_tree(tree_root, traversal_type = True):
     fig, ax = plt.subplots()
     path = []
 
+    # Handle the update operation.
     def update(frame):
         sleep(0.5)
         ax.clear()
@@ -112,6 +119,7 @@ def draw_tree(tree_root, traversal_type = True):
             ax.set_title(f'Press Enter to start')
             nx.draw(tree, pos=pos, labels=labels, node_size=2000, node_color='lightblue', ax=ax, font_weight='bold')
 
+    # Handle the on key press operation.
     def on_key_press(event):
         nonlocal traversal_type  # Access and modify the outer scope's traversal_type
         nonlocal ani # Access the animation object to stop and restart it
@@ -146,6 +154,7 @@ def draw_tree(tree_root, traversal_type = True):
     plt.show()
     
 
+# Run the main operation.
 def main():
     # Створення дерева
     root = Node(0)
