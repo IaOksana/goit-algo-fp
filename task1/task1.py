@@ -1,5 +1,6 @@
 from linked_list import LinkedList
 
+# Run the main operation.
 def main():
     llist = LinkedList()
 
