@@ -11,6 +11,7 @@ import heapq
 import networkx as nx
 import matplotlib.pyplot as plt
 
+# Represent the Node concept.
 class Node:
     def __init__(self, key, color="skyblue"):
         self.left = None
@@ -20,6 +21,7 @@ class Node:
         self.id = str(uuid.uuid4()) # Унікальний ідентифікатор для кожного вузла
 
 
+# Add the add edges operation.
 def add_edges(graph, node, pos, x=0, y=0, layer=1):
     if node is not None:
         graph.add_node(node.id, color=node.color, label=node.val) # Використання id та збереження значення вузла
@@ -35,6 +37,7 @@ def add_edges(graph, node, pos, x=0, y=0, layer=1):
             r = add_edges(graph, node.right, pos, x=r, y=y - 1, layer=layer + 1)
     return graph
 
+# Handle the tree to list operation.
 def tree_to_list(root):
     """Converts a binary tree to a list using level-order traversal."""
     if not root:
@@ -55,11 +58,13 @@ def tree_to_list(root):
     return tree_list
 
 
+# Handle the list to heap operation.
 def list_to_heap(tree_list):
     """Transforms the list representation into a binary heap (min-heap)."""
     heapq.heapify(tree_list)
     return tree_list
 
+# Handle the heap to tree operation.
 def heap_to_tree(heap_list):
     """Converts a heap represented as a list back to a binary tree."""
     if not heap_list:
@@ -85,11 +90,13 @@ def heap_to_tree(heap_list):
     return root
 
 
+# Handle the tree to heap to tree operation.
 def tree_to_heap_to_tree(tree_root):
     # перетворення дерева на купу (використовується перетворення спочатку дерева на список)
     return heap_to_tree(list_to_heap(tree_to_list(tree_root)))
 
 
+# Visualize the draw tree operation.
 def draw_tree(tree_root):
     tree = nx.DiGraph()
     pos = {tree_root.id: (0, 0)}
@@ -103,6 +110,7 @@ def draw_tree(tree_root):
     plt.show()
 
 
+# Run the main operation.
 def main():
     # Створення дерева
     root = Node(2)
