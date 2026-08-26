@@ -21,6 +21,7 @@ import random
 import matplotlib.pyplot as plt
 import numpy as np
 
+# Handle the generate readme operation.
 def generate_readme(probability_estimates, analytical_probability):
     with open("readme.md", "w") as f:
         f.write("# Comparative Analysis: Analytical Method vs Monte-Carlo\n\n")
@@ -43,6 +44,7 @@ def generate_readme(probability_estimates, analytical_probability):
 
 
 
+# Handle the monte carlo pi operation.
 def monte_carlo_pi(num_samples, a = 1, b = 6):
     # 1. Визначення моделі або системи.
     counters = [0] * 11
@@ -62,6 +64,7 @@ def monte_carlo_pi(num_samples, a = 1, b = 6):
    
     return counters
 
+# Run the main operation.
 def main():
     analytical_probability = [2.78, 5.56, 8.33, 11.11, 13.89, 16.67, 13.89, 11.11, 8.33, 5.56, 2.78]
     print(f"Аналітичні значення: {analytical_probability}")
